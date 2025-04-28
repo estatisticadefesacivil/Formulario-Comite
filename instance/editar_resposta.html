@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comitê do Clima | Formulário</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="comite icon" href="../static/favicon.ico" />
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: url('../static/background-home.svg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: transparent;
+            padding: 15px 30px 40px;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+        .header img {
+            height: 100px;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            margin: 0;
+            max-width: 300px;
+        }
+
+        .header p {
+            font-size: 18px;
+            margin: 0;
+            max-width: 300px;
+            color: #A8D252;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            margin-right: 40px;
+        }
+
+        .logout img {
+            height: 32px;
+        }
+
+        .container {
+            width: 60%;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            justify-items: center;
+        }
+
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            padding-left: 15px;
+            border-left: 2px solid white;
+            height: 50px;
+            justify-content: center;
+        }
+
+        .form-title {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .btn {
+            position: absolute;
+            right: 80px;
+            bottom: 30px;
+            width: 20%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #51A319;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 40px 20px 0px;
+
+        }
+
+        .btn:hover {
+            background: #40910a;
+        }
+
+        .form-box {
+            width: 90%;
+            padding: 20px 40px 40px 40px;
+            border-radius: 10px;
+            background-color: white;
+
+
+        }
+
+        .form-box h1 {
+            margin-bottom: 10px;
+        }
+
+        .form-box h2 {
+            margin-bottom: 30px;
+        }
+
+        .form-box p {
+            color: #39413D;
+            margin-bottom: 30px;
+        }
+
+        .form-box label {
+            display: block;
+            text-align: left;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #39413D;
+            text-align: left;
+        }
+
+        .form-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-width: thin;
+            border-radius: 8px;
+            border-color: #39413D;
+            color: #8E8E93;
+            text-align: left;
+        }
+
+        .form-box select {
+            width: 102%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-width: thin;
+            border-radius: 8px;
+            border-color: #39413D;
+            color: #8E8E93;
+            text-align: left;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .form-box textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 30px;
+            border-width: thin;
+            border-radius: 8px;
+            border-color: #39413D;
+            color: #8E8E93;
+            text-align: left;
+        }
+
+        .loader {
+            display: none;
+            margin: 10px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #fff;
+            border-top: 4px solid #22c55e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .returnBtn {
+            position: absolute;
+            top: 15px;
+            left: 60px;
+
+        }
+
+        .checkbox-container {
+            max-height: 300px;
+            /* Altura máxima com rolagem */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            /* padding: 10px; */
+            border-radius: 5px;
+            width: 100%;
+            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 5px 5px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            /* Alinha verticalmente o círculo e o texto */
+            gap: 8px;
+            /* Espaço entre o círculo e o texto */
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            appearance: none;
+            width: 6px;
+            /* Diminua esse valor para reduzir o círculo */
+            height: 6px;
+            border: 2px solid #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+        }
+
+
+        .checkbox-item input[type="checkbox"]:checked {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked::before {
+            content: "";
+            width: 2px;
+            /* Mantém proporcional ao círculo menor */
+            height: 2px;
+            margin-top: 85px;
+            background-color: #007bff;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        .checkbox-item label {
+            font-size: 12px;
+            line-height: 0.5;
+            /* Ajusta a altura da linha */
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="logo">
+            <img src="../static/amazonas-logo.svg" alt="Logo Amazonas">
+            <div class="text-container">
+                <h2>Comitê Permanente de Enfrentamento aos Eventos</h2>
+                <p>Climáticos & Ambientais</p>
+            </div>
+        </div>
+
+        <a href="{{ url_for('login') }}" class="logout">
+            sair<img src="../static/logout-icon.svg" alt="Sair" title="Sair"> 
+        </a>
+    </div>
+
+    <div class="container style">
+        <div class="returnBtn">
+            <a href="{{ url_for('minhas_respostas') }}" id="returnBtn" class="align-start" style="color: white">&#60 Voltar</a>
+        </div>
+        <div class="form-title">
+            <h1>Editar Resposta</h1>
+        </div>
+
+        <div class="form-box">
+            <form method="POST" enctype="multipart/form-data">
+
+                <!-- Perguntas que não podem ser editadas (fixas do que já foi feito no formulário) -->
+                <input type="hidden" name="nome_secretaria" value="{{ resposta.nome_secretaria or '' }}">
+                <input type="hidden" name="situacao_problema" value="{{ resposta.situacao_problema or '' }}">
+                <input type="hidden" name="evento" value="{{ resposta.evento or '' }}">
+
+                <!-- Tipo de ação -->
+                <div class="mb-3">
+                    <label for="tipo_acao" class="form-label">Selecione o novo status da ação que está sendo editada:</label>
+                    <select class="form-select" id="tipo_acao" name="tipo_acao" required onchange="toggleCampos()">
+                        <option value="" disabled selected>Selecione...</option>
+                        <option value="PLANEJAMENTO">Ação em Planejamento</option>
+                        <option value="ANDAMENTO">Ação em Andamento</option>
+                        <option value="REALIZADA">Ação Realizada</option>
+                    </select>
+                </div>
+
+                <!-- Campos para Ação em Planejamento -->
+
+                <div id="planejamento_section" style="display: none;">
+                    <div class="mb-3">
+                        <label for="nivel_vulnerabilidade1" class="form-label">
+                            Qual o nível dos locais que estão vulneráveis a essa situação?
+                        </label>
+                        <select class="form-select" id="nivel_vulnerabilidade1" name="nivel_vulnerabilidade1" onchange="toggleMunicipiosPlanejamento()">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="ESTADO">Estado</option>
+                            <option value="MUNICÍPIO">Município</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="municipio_section_planejamento" style="display: none;">
+                        <label for = "municipio_section_planejamento" class="form-label">Selecione os Municípios:</label>
+                        <div class="checkbox-container">
+                            <div class="checkbox-item"><input type="checkbox" id="Alvaraes" name="municipio_section_planejamento"
+                                    value="Alvarães"><label for="Alvaraes">Alvarães</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Amatura" name="municipio_section_planejamento"
+                                    value="Amaturá"><label for="Amatura">Amaturá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Anama" name="municipio_section_planejamento"
+                                    value="Anamã"><label for="Anama">Anamã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Anori" name="municipio_section_planejamento"
+                                    value="Anori"><label for="Anori">Anori</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Apui" name="municipio_section_planejamento"
+                                    value="Apuí"><label for="Apui">Apuí</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="AtalaiaDoNorte" name="municipio_section_planejamento"
+                                    value="Atalaia do Norte"><label for="AtalaiaDoNorte">Atalaia do Norte</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Autazes" name="municipio_section_planejamento"
+                                    value="Autazes"><label for="Autazes">Autazes</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Barcelos" name="municipio_section_planejamento"
+                                    value="Barcelos"><label for="Barcelos">Barcelos</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Barreirinha" name="municipio_section_planejamento"
+                                    value="Barreirinha"><label for="Barreirinha">Barreirinha</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="BenjaminConstant" name="municipio_section_planejamento"
+                                    value="Benjamin Constant"><label for="BenjaminConstant">Benjamin Constant</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="Beruri" name="municipio_section_planejamento"
+                                    value="Beruri"><label for="Beruri">Beruri</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="BoaVistaDoRamos" name="municipio_section_planejamento"
+                                    value="Boa Vista do Ramos"><label for="BoaVistaDoRamos">Boa Vista do Ramos</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="BocaDoAcre" name="municipio_section_planejamento"
+                                    value="Boca do Acre"><label for="BocaDoAcre">Boca do Acre</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Borba" name="municipio_section_planejamento"
+                                    value="Borba"><label for="Borba">Borba</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Caapiranga" name="municipio_section_planejamento"
+                                    value="Caapiranga"><label for="Caapiranga">Caapiranga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Canutama" name="municipio_section_planejamento"
+                                    value="Canutama"><label for="Canutama">Canutama</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Carauari" name="municipio_section_planejamento"
+                                    value="Carauari"><label for="Carauari">Carauari</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CareiroCastanho" name="municipio_section_planejamento"
+                                    value="Careiro Castanho"><label for="CareiroCastanho">Careiro Castanho</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CareiroDaVarzea" name="municipio_section_planejamento"
+                                    value="Careiro da Várzea"><label for="CareiroDaVarzea">Careiro da Várzea</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="Coari" name="municipio_section_planejamento"
+                                    value="Coari"><label for="Coari">Coari</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Codajas" name="municipio_section_planejamento"
+                                    value="Codajás"><label for="Codajas">Codajás</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Eirunepe" name="municipio_section_planejamento"
+                                    value="Eirunepé"><label for="Eirunepe">Eirunepé</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Envira" name="municipio_section_planejamento"
+                                    value="Envira"><label for="Envira">Envira</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FonteBoa" name="municipio_section_planejamento"
+                                    value="Fonte Boa"><label for="FonteBoa">Fonte Boa</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Guajara" name="municipio_section_planejamento"
+                                    value="Guajará"><label for="Guajara">Guajará</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Humaita" name="municipio_section_planejamento"
+                                    value="Humaitá"><label for="Humaita">Humaitá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Ipixuna" name="municipio_section_planejamento"
+                                    value="Ipixuna"><label for="Ipixuna">Ipixuna</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Iranduba" name="municipio_section_planejamento"
+                                    value="Iranduba"><label for="Iranduba">Iranduba</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itacoatiara" name="municipio_section_planejamento"
+                                    value="Itacoatiara"><label for="Itacoatiara">Itacoatiara</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itamarati" name="municipio_section_planejamento"
+                                    value="Itamarati"><label for="Itamarati">Itamarati</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itapiranga" name="municipio_section_planejamento"
+                                    value="Itapiranga"><label for="Itapiranga">Itapiranga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Japura" name="municipio_section_planejamento"
+                                    value="Japurá"><label for="Japura">Japurá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Jurua" name="municipio_section_planejamento"
+                                    value="Juruá"><label for="Jurua">Juruá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Jutai" name="municipio_section_planejamento"
+                                    value="Jutaí"><label for="Jutai">Jutaí</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Labrea" name="municipio_section_planejamento"
+                                    value="Lábrea"><label for="Labrea">Lábrea</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manacapuru" name="municipio_section_planejamento"
+                                    value="Manacapuru"><label for="Manacapuru">Manacapuru</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manaquiri" name="municipio_section_planejamento"
+                                    value="Manaquiri"><label for="Manaquiri">Manaquiri</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manaus" name="municipio_section_planejamento"
+                                    value="Manaus"><label for="Manaus">Manaus</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manicore" name="municipio_section_planejamento"
+                                    value="Manicoré"><label for="Manicore">Manicoré</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Maraa" name="municipio_section_planejamento"
+                                    value="Maraã"><label for="Maraa">Maraã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Maues" name="municipio_section_planejamento"
+                                    value="Maués"><label for="Maues">Maués</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Nhamunda" name="municipio_section_planejamento"
+                                    value="Nhamundá"><label for="Nhamunda">Nhamundá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovaOlinda" name="municipio_section_planejamento"
+                                    value="Nova Olinda do Norte"><label for="NovaOlinda">Nova Olinda do Norte</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovoAirao" name="municipio_section_planejamento"
+                                    value="Novo Airão"><label for="NovoAirao">Novo Airão</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovoAripuana" name="municipio_section_planejamento"
+                                    value="Novo Aripuanã"><label for="NovoAripuana">Novo Aripuanã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Parintins" name="municipio_section_planejamento"
+                                    value="Parintins"><label for="Parintins">Parintins</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Pauini" name="municipio_section_planejamento"
+                                    value="Pauini"><label for="Pauini">Pauini</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PresidenteFigueiredo"
+                                    name="municipios" value="Presidente Figueiredo"><label
+                                    for="PresidenteFigueiredo">Presidente Figueiredo</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="RioPretoDaEva" name="municipio_section_planejamento"
+                                    value="Rio Preto da Eva"><label for="RioPretoDaEva">Rio Preto da Eva</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SantaIsabel" name="municipio_section_planejamento"
+                                    value="Santa Isabel do Rio Negro"><label for="SantaIsabel">Santa Isabel do Rio
+                                    Negro</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SantoAntonio" name="municipio_section_planejamento"
+                                    value="Santo Antônio do Içá"><label for="SantoAntonio">Santo Antônio do Içá</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoGabriel" name="municipio_section_planejamento"
+                                    value="São Gabriel da Cachoeira"><label for="SaoGabriel">São Gabriel da
+                                    Cachoeira</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoPaulo" name="municipio_section_planejamento"
+                                    value="São Paulo de Olivença"><label for="SaoPaulo">São Paulo de Olivença</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoSebastiao" name="municipio_section_planejamento"
+                                    value="São Sebastião do Uatumã"><label for="SaoSebastiao">São Sebastião do
+                                    Uatumã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Silves" name="municipio_section_planejamento"
+                                    value="Silves"><label for="Silves">Silves</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tabatinga" name="municipio_section_planejamento"
+                                    value="Tabatinga"><label for="Tabatinga">Tabatinga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tapaua" name="municipio_section_planejamento"
+                                    value="Tapauá"><label for="Tapaua">Tapauá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tefe" name="municipio_section_planejamento"
+                                    value="Tefé"><label for="Tefe">Tefé</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tonantins" name="municipio_section_planejamento"
+                                    value="Tonantins"><label for="Tonantins">Tonantins</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Uarini" name="municipio_section_planejamento"
+                                    value="Uarini"><label for="Uarini">Uarini</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Urucara" name="municipio_section_planejamento"
+                                    value="Urucará"><label for="Urucara">Urucará</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Urucurituba" name="municipio_section_planejamento"
+                                    value="Urucurituba"><label for="Urucurituba">Urucurituba</label></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="objetivos_planejamento" class="form-label">Quais os principais objetivos da
+                            ação?</label>
+                        <textarea class="form-control" id="objetivos_planejamento" name="objetivos_planejamento"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="valor_planejamento" class="form-label">Qual o valor previsto a ser
+                            empenhado (R$)?</label>
+                        <input type="number" step="0.01" class="form-control" id="valor_planejamento"
+                            name="valor_planejamento">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="orcamento_planejamento" class="form-label">O orçamento já está garantido ou depende
+                            de captação de recursos?</label>
+                        <select class="form-select" id="orcamento_planejamento" name="orcamento_planejamento">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="Sim">Garantido</option>
+                            <option value="Não">Depende da captação de recursos</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inicio_planejamento" class="form-label">Data de Início Prevista</label>
+                        <input type="date" class="form-control" id="inicio_planejamento" name="inicio_planejamento">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="termino_planejamento" class="form-label">Data de Término Prevista</label>
+                        <input type="date" class="form-control" id="termino_planejamento" name="termino_planejamento">
+                    </div>
+
+
+                </div>
+
+                <!-- Campos para Ação em Andamento -->
+                <div id="andamento_section" style="display: none;">
+                    <div class="mb-3">
+                        <label for="nivel_vulnerabilidade2" class="form-label">
+                            Qual o nível dos locais que estão vulneráveis a essa situação?
+                        </label>
+                        <select class="form-select" for="nivel_vulnerabilidade2" id="nivel_vulnerabilidade2" name="nivel_vulnerabilidade2" onchange="toggleMunicipiosAndamento()">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="ESTADO">Estado</option>
+                            <option value="MUNICÍPIO">Município</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="municipio_section_andamento" style="display: none;">
+                        <label class="form-label">Selecione os Municípios:</label>
+                        <div class="checkbox-container">
+                            <div class="checkbox-item"><input type="checkbox" id="Alvaraes" name="municipio_section_andamento"
+                                    value="Alvarães"><label for="Alvaraes">Alvarães</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Amatura" name="municipio_section_andamento"
+                                    value="Amaturá"><label for="Amatura">Amaturá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Anama" name="municipio_section_andamento"
+                                    value="Anamã"><label for="Anama">Anamã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Anori" name="municipio_section_andamento"
+                                    value="Anori"><label for="Anori">Anori</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Apui" name="municipio_section_andamento"
+                                    value="Apuí"><label for="Apui">Apuí</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="AtalaiaDoNorte" name="municipio_section_andamento"
+                                    value="Atalaia do Norte"><label for="AtalaiaDoNorte">Atalaia do Norte</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Autazes" name="municipio_section_andamento"
+                                    value="Autazes"><label for="Autazes">Autazes</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Barcelos" name="municipio_section_andamento"
+                                    value="Barcelos"><label for="Barcelos">Barcelos</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Barreirinha" name="municipio_section_andamento"
+                                    value="Barreirinha"><label for="Barreirinha">Barreirinha</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="BenjaminConstant" name="municipio_section_andamento"
+                                    value="Benjamin Constant"><label for="BenjaminConstant">Benjamin Constant</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="Beruri" name="municipio_section_andamento"
+                                    value="Beruri"><label for="Beruri">Beruri</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="BoaVistaDoRamos" name="municipio_section_andamento"
+                                    value="Boa Vista do Ramos"><label for="BoaVistaDoRamos">Boa Vista do Ramos</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="BocaDoAcre" name="municipio_section_andamento"
+                                    value="Boca do Acre"><label for="BocaDoAcre">Boca do Acre</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Borba" name="municipio_section_andamento"
+                                    value="Borba"><label for="Borba">Borba</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Caapiranga" name="municipio_section_andamento"
+                                    value="Caapiranga"><label for="Caapiranga">Caapiranga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Canutama" name="municipio_section_andamento"
+                                    value="Canutama"><label for="Canutama">Canutama</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Carauari" name="municipio_section_andamento"
+                                    value="Carauari"><label for="Carauari">Carauari</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CareiroCastanho" name="municipio_section_andamento"
+                                    value="Careiro Castanho"><label for="CareiroCastanho">Careiro Castanho</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CareiroDaVarzea" name="municipio_section_andamento"
+                                    value="Careiro da Várzea"><label for="CareiroDaVarzea">Careiro da Várzea</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="Coari" name="municipio_section_andamento"
+                                    value="Coari"><label for="Coari">Coari</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Codajas" name="municipio_section_andamento"
+                                    value="Codajás"><label for="Codajas">Codajás</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Eirunepe" name="municipio_section_andamento"
+                                    value="Eirunepé"><label for="Eirunepe">Eirunepé</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Envira" name="municipio_section_andamento"
+                                    value="Envira"><label for="Envira">Envira</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FonteBoa" name="municipio_section_andamento"
+                                    value="Fonte Boa"><label for="FonteBoa">Fonte Boa</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Guajara" name="municipio_section_andamento"
+                                    value="Guajará"><label for="Guajara">Guajará</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Humaita" name="municipio_section_andamento"
+                                    value="Humaitá"><label for="Humaita">Humaitá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Ipixuna" name="municipio_section_andamento"
+                                    value="Ipixuna"><label for="Ipixuna">Ipixuna</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Iranduba" name="municipio_section_andamento"
+                                    value="Iranduba"><label for="Iranduba">Iranduba</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itacoatiara" name="municipio_section_andamento"
+                                    value="Itacoatiara"><label for="Itacoatiara">Itacoatiara</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itamarati" name="municipio_section_andamento"
+                                    value="Itamarati"><label for="Itamarati">Itamarati</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itapiranga" name="municipio_section_andamento"
+                                    value="Itapiranga"><label for="Itapiranga">Itapiranga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Japura" name="municipio_section_andamento"
+                                    value="Japurá"><label for="Japura">Japurá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Jurua" name="municipio_section_andamento"
+                                    value="Juruá"><label for="Jurua">Juruá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Jutai" name="municipio_section_andamento"
+                                    value="Jutaí"><label for="Jutai">Jutaí</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Labrea" name="municipio_section_andamento"
+                                    value="Lábrea"><label for="Labrea">Lábrea</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manacapuru" name="municipio_section_andamento"
+                                    value="Manacapuru"><label for="Manacapuru">Manacapuru</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manaquiri" name="municipio_section_andamento"
+                                    value="Manaquiri"><label for="Manaquiri">Manaquiri</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manaus" name="municipio_section_andamento"
+                                    value="Manaus"><label for="Manaus">Manaus</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manicore" name="municipio_section_andamento"
+                                    value="Manicoré"><label for="Manicore">Manicoré</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Maraa" name="municipio_section_andamento"
+                                    value="Maraã"><label for="Maraa">Maraã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Maues" name="municipio_section_andamento"
+                                    value="Maués"><label for="Maues">Maués</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Nhamunda" name="municipio_section_andamento"
+                                    value="Nhamundá"><label for="Nhamunda">Nhamundá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovaOlinda" name="municipio_section_andamento"
+                                    value="Nova Olinda do Norte"><label for="NovaOlinda">Nova Olinda do Norte</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovoAirao" name="municipio_section_andamento"
+                                    value="Novo Airão"><label for="NovoAirao">Novo Airão</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovoAripuana" name="municipio_section_andamento"
+                                    value="Novo Aripuanã"><label for="NovoAripuana">Novo Aripuanã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Parintins" name="municipio_section_andamento"
+                                    value="Parintins"><label for="Parintins">Parintins</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Pauini" name="municipio_section_andamento"
+                                    value="Pauini"><label for="Pauini">Pauini</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="municipio_section_andamento"
+                                    name="municipios" value="Presidente Figueiredo"><label
+                                    for="PresidenteFigueiredo">Presidente Figueiredo</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="RioPretoDaEva" name="municipio_section_andamento"
+                                    value="Rio Preto da Eva"><label for="RioPretoDaEva">Rio Preto da Eva</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SantaIsabel" name="municipio_section_andamento"
+                                    value="Santa Isabel do Rio Negro"><label for="SantaIsabel">Santa Isabel do Rio
+                                    Negro</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SantoAntonio" name="municipio_section_andamento"
+                                    value="Santo Antônio do Içá"><label for="SantoAntonio">Santo Antônio do Içá</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoGabriel" name="municipio_section_andamento"
+                                    value="São Gabriel da Cachoeira"><label for="SaoGabriel">São Gabriel da
+                                    Cachoeira</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoPaulo" name="municipio_section_andamento"
+                                    value="São Paulo de Olivença"><label for="SaoPaulo">São Paulo de Olivença</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoSebastiao" name="municipio_section_andamento"
+                                    value="São Sebastião do Uatumã"><label for="SaoSebastiao">São Sebastião do
+                                    Uatumã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Silves" name="municipio_section_andamento"
+                                    value="Silves"><label for="Silves">Silves</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tabatinga" name="municipio_section_andamento"
+                                    value="Tabatinga"><label for="Tabatinga">Tabatinga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tapaua" name="municipio_section_andamento"
+                                    value="Tapauá"><label for="Tapaua">Tapauá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tefe" name="municipio_section_andamento"
+                                    value="Tefé"><label for="Tefe">Tefé</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tonantins" name="municipio_section_andamento"
+                                    value="Tonantins"><label for="Tonantins">Tonantins</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Uarini" name="municipio_section_andamento"
+                                    value="Uarini"><label for="Uarini">Uarini</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Urucara" name="municipio_section_andamento"
+                                    value="Urucará"><label for="Urucara">Urucará</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Urucurituba" name="municipio_section_andamento"
+                                    value="Urucurituba"><label for="Urucurituba">Urucurituba</label></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao_andamento" class="form-label">Descreva a ação que está em
+                            andamento:</label>
+                        <textarea class="form-control" id="descricao_andamento" name="descricao_andamento"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="valor_empenhado_andamento" class="form-label">Informe o valor empenhado até o
+                            momento (R$):</label>
+                        <input type="number" step="0.01" class="form-control" id="valor_empenhado_andamento"
+                            name="valor_empenhado_andamento">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inicio_andamento" class="form-label">Qual foi a data inicial da execução dessa
+                            ação?</label>
+                        <input type="date" class="form-control" id="inicio_andamento" name="inicio_andamento">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="termino_andamento" class="form-label">Qual é a data estimada para a conclusão dessa
+                            ação?</label>
+                        <input type="date" class="form-control" id="termino_andamento" name="termino_andamento">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="desafios_andamento" class="form-label">Quais desafios ou dificuldades estão sendo
+                            enfrentados na execução dessa ação?</label>
+                        <textarea class="form-control" id="desafios_andamento" name="desafios_andamento"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="informacao_populacao" class="form-label">Como a população afetada está sendo
+                            informada sobre o andamento dessa ação?</label>
+                        <textarea class="form-control" id="informacao_populacao" name="informacao_populacao"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="secretarias_andamento" class="form-label">Selecione as secretarias que estão envolvidas na ação:</label>
+                        <div class="checkbox-container">
+                            <div class="checkbox-item"><input type="checkbox" id="ADAF" name="secretarias_andamento"
+                                    value="ADAF"><label for="ADAF">ADAF</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="ADS" name="secretarias_andamento"
+                                    value="ADS"><label for="ADS">ADS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="ARSEPAM" name="secretarias_andamento"
+                                    value="ARSEPAM"><label for="ARSEPAM">ARSEPAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CASA CIVIL DO GOVERNO"
+                                    name="secretarias_andamento" value="CASA CIVIL DO GOVERNO"><label for="Anori">CASA CIVIL DO
+                                    GOVERNO</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CASA MILITAR" name="secretarias_andamento"
+                                    value="CASA MILITAR"><label for="CASA MILITAR">CASA MILITAR</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CBMAM" name="secretarias_andamento"
+                                    value="CBMAM"><label for="CBMAM">CBMAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CETAM" name="secretarias_andamento"
+                                    value="CETAM"><label for="CETAM">CETAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CGE" name="secretarias_andamento"
+                                    value="CGE"><label for="CGE">CGE</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CIAMA" name="secretarias_andamento"
+                                    value="CIAMA"><label for="CIAMA">CIAMA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CSC" name="secretarias_andamento"
+                                    value="CSC"><label for="CSC">CSC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="DEFESA CIVIL AMAZONAS"
+                                    name="secretarias_andamento" value="DEFESA CIVIL AMAZONAS"><label
+                                    for="DEFESA CIVIL AMAZONAS">DEFESA CIVIL AMAZONAS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="DETRAN" name="secretarias_andamento"
+                                    value="DETRAN"><label for="DETRAN">DETRAN</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="ERGSP" name="secretarias_andamento"
+                                    value="ERGSP"><label for="ERGSP">ERGSP</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FAAR" name="secretarias_andamento"
+                                    value="FAAR"><label for="FAAR">FAAR</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FAPEM" name="secretarias_andamento"
+                                    value="FAPEM"><label for="FAPEM">FAPEM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FCECON" name="secretarias_andamento"
+                                    value="FCECON"><label for="FCECON">FCECON</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FEH" name="secretarias_andamento"
+                                    value="FEH"><label for="FEH">FEH</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FEPIAN" name="secretarias_andamento"
+                                    value="FEPIAN"><label for="FEPIAN">FEPIAN</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FHAJ" name="secretarias_andamento"
+                                    value="FHAJ"><label for="FHAJ">FHAJ</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FHEMOAM" name="secretarias_andamento"
+                                    value="FHEMOAM"><label for="FHEMOAM">FHEMOAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FMT-AM" name="secretarias_andamento"
+                                    value="FMT-AM"><label for="FMT-AM">FMT-AM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUHAM" name="secretarias_andamento"
+                                    value="FUHAM"><label for="FUHAM">FUHAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNATI" name="secretarias_andamento"
+                                    value="FUNATI"><label for="FUNATI">FUNATI</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNDAÇÃO AMAZON PREV"
+                                    name="secretarias_andamento" value="FUNDAÇÃO AMAZON PREV"><label
+                                    for="FUNDAÇÃO AMAZON PREV">FUNDAÇÃO AMAZON PREV</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNDAÇÃO VILA OLÍMPICA"
+                                    name="secretarias_andamento" value="FUNDAÇÃO VILA OLÍMPICA"><label
+                                    for="FUNDAÇÃO VILA OLÍMPICA">FUNDAÇÃO VILA OLÍMPICA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNTEC" name="secretarias_andamento"
+                                    value="FUNTEC"><label for="FUNTEC">FUNTEC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FVS" name="secretarias_andamento"
+                                    value="FVS"><label for="FVS">FVS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="IDAM" name="secretarias_andamento"
+                                    value="IDAM"><label for="IDAM">IDAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="IMPRENSA OFICIAL" name="secretarias_andamento"
+                                    value="IMPRENSA OFICIAL"><label for="IMPRENSA OFICIAL">IMPRENSA OFICIAL</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="IPAAM" name="secretarias_andamento"
+                                    value="IPAAM"><label for="IPAAM">IPAAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="IPEM-AM" name="secretarias_andamento"
+                                    value="IPEM-AM"><label for="IPEM-AM">IPEM-AM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="JUCEA" name="secretarias_andamento"
+                                    value="JUCEA"><label for="JUCEA">JUCEA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="OUVIDORIA GERAL" name="secretarias_andamento"
+                                    value="OUVIDORIA GERAL"><label for="OUVIDORIA GERAL">OUVIDORIA GERAL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PGE" name="secretarias_andamento"
+                                    value="PGE"><label for="PGE">PGE</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PMAM" name="secretarias_andamento"
+                                    value="PMAM"><label for="PMAM">PMAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="POLÍCIA CIVIL" name="secretarias_andamento"
+                                    value="POLÍCIA CIVIL"><label for="POLÍCIA CIVIL">POLÍCIA CIVIL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PROCON" name="secretarias_andamento"
+                                    value="PROCON"><label for="PROCON">PROCON</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PRODAM" name="secretarias_andamento"
+                                    value="PRODAM"><label for="PRODAM">PRODAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEAD" name="secretarias_andamento"
+                                    value="SEAD"><label for="SEAD">SEAD</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEAP" name="secretarias_andamento"
+                                    value="SEAP"><label for="SEAP">SEAP</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEAS" name="secretarias_andamento"
+                                    value="SEAS"><label for="SEAS">SEAS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEC" name="secretarias_andamento"
+                                    value="SEC"><label for="SEC">SEC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SECT" name="secretarias_andamento"
+                                    value="SECT"><label for="SECT">SECT</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDECT" name="secretarias_andamento"
+                                    value="SEDECT"><label for="SEDECT">SEDECT</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDECTI" name="secretarias_andamento"
+                                    value="SEDECTI"><label for="SEDECTI">SEDECTI</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDEL" name="secretarias_andamento"
+                                    value="SEDEL"><label for="SEDEL">SEDEL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDUC" name="secretarias_andamento"
+                                    value="SEDUC"><label for="SEDUC">SEDUC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEFAZ" name="secretarias_andamento"
+                                    value="SEFAZ"><label for="SEFAZ">SEFAZ</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEGOV" name="secretarias_andamento"
+                                    value="SEGOV"><label for="SEGOV">SEGOV</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEIND" name="secretarias_andamento"
+                                    value="SEIND"><label for="SEIND">SEIND</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEINFRA" name="secretarias_andamento"
+                                    value="SEINFRA"><label for="SEINFRA">SEINFRA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEJEL" name="secretarias_andamento"
+                                    value="SEJEL"><label for="SEJEL">SEJEL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEJUSC" name="secretarias_andamento"
+                                    value="SEJUSC"><label for="SEJUSC">SEJUSC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEMA" name="secretarias_andamento"
+                                    value="SEMA"><label for="SEMA">SEMA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEMIG" name="secretarias_andamento"
+                                    value="SEMIG"><label for="SEMIG">SEMIG</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEPED" name="secretarias_andamento"
+                                    value="SEPED"><label for="SEPED">SEPED</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEPROR" name="secretarias_andamento"
+                                    value="SEPROR"><label for="SEPROR">SEPROR</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SERFI" name="secretarias_andamento"
+                                    value="SERFI"><label for="SERFI">SERFI</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SERGB" name="secretarias_andamento"
+                                    value="SERGB"><label for="SERGB">SERGB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SES" name="secretarias_andamento"
+                                    value="SES"><label for="SES">SES</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SETRAB" name="secretarias_andamento"
+                                    value="SETRAB"><label for="SETRAB">SETRAB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SGVG" name="secretarias_andamento"
+                                    value="SGVG"><label for="SGVG">SGVG</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SNPH" name="secretarias_andamento"
+                                    value="SNPH"><label for="SNPH">SNPH</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SRMM" name="secretarias_andamento"
+                                    value="SRMM"><label for="SRMM">SRMM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SSP" name="secretarias_andamento"
+                                    value="SSP"><label for="SSP">SSP</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SUHAB" name="secretarias_andamento"
+                                    value="SUHAB"><label for="SUHAB">SUHAB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="UEA" name="secretarias_andamento"
+                                    value="UEA"><label for="UEA">UEA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="UGPE" name="secretarias_andamento"
+                                    value="UGPE"><label for="UGPE">UGPE</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDURB" name="secretarias_andamento"
+                                    value="SEDURB"><label for="SEDURB">SEDURB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="TV ENCONTRO DAS ÁGUAS"
+                                    name="secretarias_andamento" value="TV ENCONTRO DAS ÁGUAS"><label
+                                    for="TV ENCONTRO DAS ÁGUAS">TV ENCONTRO DAS ÁGUAS</label></div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Campos para Ação Realizada -->
+                <div id="realizada_section" style="display: none;">
+                    <div class="mb-3">
+                        <label for="nivel_vulnerabilidade3" class="form-label">
+                            Qual o nível dos locais que estão vulneráveis a essa situação?
+                        </label>
+                        <select class="form-select" id="nivel_vulnerabilidade3" name="nivel_vulnerabilidade3" onchange="toggleMunicipiosRealizada()">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="ESTADO">Estado</option>
+                            <option value="MUNICÍPIO">Município</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="municipio_section_realizada" style="display: none;">
+                        <label class="form-label">Selecione os Municípios:</label>
+                        <div class="checkbox-container">
+                            <div class="checkbox-item"><input type="checkbox" id="Alvaraes" name="municipio_section_realizada"
+                                    value="Alvarães"><label for="Alvaraes">Alvarães</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Amatura" name="municipio_section_realizada"
+                                    value="Amaturá"><label for="Amatura">Amaturá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Anama" name="municipio_section_realizada"
+                                    value="Anamã"><label for="Anama">Anamã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Anori" name="municipio_section_realizada"
+                                    value="Anori"><label for="Anori">Anori</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Apui" name="municipio_section_realizada"
+                                    value="Apuí"><label for="Apui">Apuí</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="AtalaiaDoNorte" name="municipio_section_realizada"
+                                    value="Atalaia do Norte"><label for="AtalaiaDoNorte">Atalaia do Norte</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Autazes" name="municipio_section_realizada"
+                                    value="Autazes"><label for="Autazes">Autazes</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Barcelos" name="municipio_section_realizada"
+                                    value="Barcelos"><label for="Barcelos">Barcelos</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Barreirinha" name="municipio_section_realizada"
+                                    value="Barreirinha"><label for="Barreirinha">Barreirinha</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="BenjaminConstant" name="municipio_section_realizada"
+                                    value="Benjamin Constant"><label for="BenjaminConstant">Benjamin Constant</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="Beruri" name="municipio_section_realizada"
+                                    value="Beruri"><label for="Beruri">Beruri</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="BoaVistaDoRamos" name="municipio_section_realizada"
+                                    value="Boa Vista do Ramos"><label for="BoaVistaDoRamos">Boa Vista do Ramos</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="BocaDoAcre" name="municipio_section_realizada"
+                                    value="Boca do Acre"><label for="BocaDoAcre">Boca do Acre</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Borba" name="municipio_section_realizada"
+                                    value="Borba"><label for="Borba">Borba</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Caapiranga" name="municipio_section_realizada"
+                                    value="Caapiranga"><label for="Caapiranga">Caapiranga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Canutama" name="municipio_section_realizada"
+                                    value="Canutama"><label for="Canutama">Canutama</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Carauari" name="municipio_section_realizada"
+                                    value="Carauari"><label for="Carauari">Carauari</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CareiroCastanho" name="municipio_section_realizada"
+                                    value="Careiro Castanho"><label for="CareiroCastanho">Careiro Castanho</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CareiroDaVarzea" name="municipio_section_realizada"
+                                    value="Careiro da Várzea"><label for="CareiroDaVarzea">Careiro da Várzea</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="Coari" name="municipio_section_realizada"
+                                    value="Coari"><label for="Coari">Coari</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Codajas" name="municipio_section_realizada"
+                                    value="Codajás"><label for="Codajas">Codajás</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Eirunepe" name="municipio_section_realizada"
+                                    value="Eirunepé"><label for="Eirunepe">Eirunepé</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Envira" name="municipio_section_realizada"
+                                    value="Envira"><label for="Envira">Envira</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FonteBoa" name="municipio_section_realizada"
+                                    value="Fonte Boa"><label for="FonteBoa">Fonte Boa</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Guajara" name="municipio_section_realizada"
+                                    value="Guajará"><label for="Guajara">Guajará</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Humaita" name="municipio_section_realizada"
+                                    value="Humaitá"><label for="Humaita">Humaitá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Ipixuna" name="municipio_section_realizada"
+                                    value="Ipixuna"><label for="Ipixuna">Ipixuna</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Iranduba" name="municipio_section_realizada"
+                                    value="Iranduba"><label for="Iranduba">Iranduba</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itacoatiara" name="municipio_section_realizada"
+                                    value="Itacoatiara"><label for="Itacoatiara">Itacoatiara</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itamarati" name="municipio_section_realizada"
+                                    value="Itamarati"><label for="Itamarati">Itamarati</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Itapiranga" name="municipio_section_realizada"
+                                    value="Itapiranga"><label for="Itapiranga">Itapiranga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Japura" name="municipio_section_realizada"
+                                    value="Japurá"><label for="Japura">Japurá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Jurua" name="municipio_section_realizada"
+                                    value="Juruá"><label for="Jurua">Juruá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Jutai" name="municipio_section_realizada"
+                                    value="Jutaí"><label for="Jutai">Jutaí</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Labrea" name="municipio_section_realizada"
+                                    value="Lábrea"><label for="Labrea">Lábrea</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manacapuru" name="municipio_section_realizada"
+                                    value="Manacapuru"><label for="Manacapuru">Manacapuru</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manaquiri" name="municipio_section_realizada"
+                                    value="Manaquiri"><label for="Manaquiri">Manaquiri</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manaus" name="municipio_section_realizada"
+                                    value="Manaus"><label for="Manaus">Manaus</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Manicore" name="municipio_section_realizada"
+                                    value="Manicoré"><label for="Manicore">Manicoré</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Maraa" name="municipio_section_realizada"
+                                    value="Maraã"><label for="Maraa">Maraã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Maues" name="municipio_section_realizada"
+                                    value="Maués"><label for="Maues">Maués</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Nhamunda" name="municipio_section_realizada"
+                                    value="Nhamundá"><label for="Nhamunda">Nhamundá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovaOlinda" name="municipio_section_realizada"
+                                    value="Nova Olinda do Norte"><label for="NovaOlinda">Nova Olinda do Norte</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovoAirao" name="municipio_section_realizada"
+                                    value="Novo Airão"><label for="NovoAirao">Novo Airão</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="NovoAripuana" name="municipio_section_realizada"
+                                    value="Novo Aripuanã"><label for="NovoAripuana">Novo Aripuanã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Parintins" name="municipio_section_realizada"
+                                    value="Parintins"><label for="Parintins">Parintins</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Pauini" name="municipio_section_realizada"
+                                    value="Pauini"><label for="Pauini">Pauini</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PresidenteFigueiredo" 
+                                    name="municipio_section_realizada" value="Presidente Figueiredo"><label 
+                                    for="PresidenteFigueiredo">Presidente Figueiredo</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="RioPretoDaEva" name="municipio_section_realizada"
+                                    value="Rio Preto da Eva"><label for="RioPretoDaEva">Rio Preto da Eva</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SantaIsabel" name="municipio_section_realizada"
+                                    value="Santa Isabel do Rio Negro"><label for="SantaIsabel">Santa Isabel do Rio
+                                    Negro</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SantoAntonio" name="municipio_section_realizada"
+                                    value="Santo Antônio do Içá"><label for="SantoAntonio">Santo Antônio do Içá</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoGabriel" name="municipio_section_realizada"
+                                    value="São Gabriel da Cachoeira"><label for="SaoGabriel">São Gabriel da
+                                    Cachoeira</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoPaulo" name="municipio_section_realizada"
+                                    value="São Paulo de Olivença"><label for="SaoPaulo">São Paulo de Olivença</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="SaoSebastiao" name="municipio_section_realizada"
+                                    value="São Sebastião do Uatumã"><label for="SaoSebastiao">São Sebastião do
+                                    Uatumã</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Silves" name="municipio_section_realizada"
+                                    value="Silves"><label for="Silves">Silves</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tabatinga" name="municipio_section_realizada"
+                                    value="Tabatinga"><label for="Tabatinga">Tabatinga</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tapaua" name="municipio_section_realizada"
+                                    value="Tapauá"><label for="Tapaua">Tapauá</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tefe" name="municipio_section_realizada"
+                                    value="Tefé"><label for="Tefe">Tefé</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Tonantins" name="municipio_section_realizada"
+                                    value="Tonantins"><label for="Tonantins">Tonantins</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Uarini" name="municipio_section_realizada"
+                                    value="Uarini"><label for="Uarini">Uarini</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Urucara" name="municipio_section_realizada"
+                                    value="Urucará"><label for="Urucara">Urucará</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="Urucurituba" name="municipio_section_realizada"
+                                    value="Urucurituba"><label for="Urucurituba">Urucurituba</label></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao_realizada" class="form-label">Descreva a ação:</label>
+                        <textarea class="form-control" id="descricao_realizada" name="descricao_realizada"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="valor_realizada" class="form-label">Informe o valor empenhado (R$):</label>
+                        <input type="number" step="0.01" class="form-control" id="valor_realizada"
+                            name="valor_realizada">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inicio_realizada" class="form-label">Data de Início</label>
+                        <input type="date" class="form-control" id="inicio_realizada" name="inicio_realizada">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="termino_realizada" class="form-label">Data de Término</label>
+                        <input type="date" class="form-control" id="termino_realizada" name="termino_realizada">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="secretarias_realizada" class="form-label">Selecione as secretarias que atuaram na ação:</label>
+                        <div class="checkbox-container">
+                            <div class="checkbox-item"><input type="checkbox" id="ADAF" name="secretarias_realizada"
+                                    value="ADAF"><label for="ADAF">ADAF</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="ADS" name="secretarias_realizada"
+                                    value="ADS"><label for="ADS">ADS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="ARSEPAM" name="secretarias_realizada"
+                                    value="ARSEPAM"><label for="ARSEPAM">ARSEPAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CASA CIVIL DO GOVERNO"
+                                    name="secretarias_realizada" value="CASA CIVIL DO GOVERNO"><label for="Anori">CASA CIVIL DO
+                                    GOVERNO</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CASA MILITAR" name="secretarias_realizada"
+                                    value="CASA MILITAR"><label for="CASA MILITAR">CASA MILITAR</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CBMAM" name="secretarias_realizada"
+                                    value="CBMAM"><label for="CBMAM">CBMAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CETAM" name="secretarias_realizada"
+                                    value="CETAM"><label for="CETAM">CETAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CGE" name="secretarias_realizada"
+                                    value="CGE"><label for="CGE">CGE</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CIAMA" name="secretarias_realizada"
+                                    value="CIAMA"><label for="CIAMA">CIAMA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="CSC" name="secretarias_realizada"
+                                    value="CSC"><label for="CSC">CSC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="DEFESA CIVIL AMAZONAS"
+                                    name="secretarias_realizada" value="DEFESA CIVIL AMAZONAS"><label
+                                    for="DEFESA CIVIL AMAZONAS">DEFESA CIVIL AMAZONAS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="DETRAN" name="secretarias_realizada"
+                                    value="DETRAN"><label for="DETRAN">DETRAN</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="ERGSP" name="secretarias_realizada"
+                                    value="ERGSP"><label for="ERGSP">ERGSP</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FAAR" name="secretarias_realizada"
+                                    value="FAAR"><label for="FAAR">FAAR</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FAPEM" name="secretarias_realizada"
+                                    value="FAPEM"><label for="FAPEM">FAPEM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FCECON" name="secretarias_realizada"
+                                    value="FCECON"><label for="FCECON">FCECON</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FEH" name="secretarias_realizada"
+                                    value="FEH"><label for="FEH">FEH</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FEPIAN" name="secretarias_realizada"
+                                    value="FEPIAN"><label for="FEPIAN">FEPIAN</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FHAJ" name="secretarias_realizada"
+                                    value="FHAJ"><label for="FHAJ">FHAJ</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FHEMOAM" name="secretarias_realizada"
+                                    value="FHEMOAM"><label for="FHEMOAM">FHEMOAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FMT-AM" name="secretarias_realizada"
+                                    value="FMT-AM"><label for="FMT-AM">FMT-AM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUHAM" name="secretarias_realizada"
+                                    value="FUHAM"><label for="FUHAM">FUHAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNATI" name="secretarias_realizada"
+                                    value="FUNATI"><label for="FUNATI">FUNATI</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNDAÇÃO AMAZON PREV"
+                                    name="secretarias_realizada" value="FUNDAÇÃO AMAZON PREV"><label
+                                    for="FUNDAÇÃO AMAZON PREV">FUNDAÇÃO AMAZON PREV</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNDAÇÃO VILA OLÍMPICA"
+                                    name="secretarias_realizada" value="FUNDAÇÃO VILA OLÍMPICA"><label
+                                    for="FUNDAÇÃO VILA OLÍMPICA">FUNDAÇÃO VILA OLÍMPICA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FUNTEC" name="secretarias_realizada"
+                                    value="FUNTEC"><label for="FUNTEC">FUNTEC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="FVS" name="secretarias_realizada"
+                                    value="FVS"><label for="FVS">FVS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="IDAM" name="secretarias_realizada"
+                                    value="IDAM"><label for="IDAM">IDAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="IMPRENSA OFICIAL" name="secretarias_realizada"
+                                    value="IMPRENSA OFICIAL"><label for="IMPRENSA OFICIAL">IMPRENSA OFICIAL</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="IPAAM" name="secretarias_realizada"
+                                    value="IPAAM"><label for="IPAAM">IPAAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="IPEM-AM" name="secretarias_realizada"
+                                    value="IPEM-AM"><label for="IPEM-AM">IPEM-AM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="JUCEA" name="secretarias_realizada"
+                                    value="JUCEA"><label for="JUCEA">JUCEA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="OUVIDORIA GERAL" name="secretarias_realizada"
+                                    value="OUVIDORIA GERAL"><label for="OUVIDORIA GERAL">OUVIDORIA GERAL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PGE" name="secretarias_realizada"
+                                    value="PGE"><label for="PGE">PGE</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PMAM" name="secretarias_realizada"
+                                    value="PMAM"><label for="PMAM">PMAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="POLÍCIA CIVIL" name="secretarias_realizada"
+                                    value="POLÍCIA CIVIL"><label for="POLÍCIA CIVIL">POLÍCIA CIVIL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PROCON" name="secretarias_realizada"
+                                    value="PROCON"><label for="PROCON">PROCON</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="PRODAM" name="secretarias_realizada"
+                                    value="PRODAM"><label for="PRODAM">PRODAM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEAD" name="secretarias_realizada"
+                                    value="SEAD"><label for="SEAD">SEAD</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEAP" name="secretarias_realizada"
+                                    value="SEAP"><label for="SEAP">SEAP</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEAS" name="secretarias_realizada"
+                                    value="SEAS"><label for="SEAS">SEAS</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEC" name="secretarias_realizada"
+                                    value="SEC"><label for="SEC">SEC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SECT" name="secretarias_realizada"
+                                    value="SECT"><label for="SECT">SECT</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDECT" name="secretarias_realizada"
+                                    value="SEDECT"><label for="SEDECT">SEDECT</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDECTI" name="secretarias_realizada"
+                                    value="SEDECTI"><label for="SEDECTI">SEDECTI</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDEL" name="secretarias_realizada"
+                                    value="SEDEL"><label for="SEDEL">SEDEL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDUC" name="secretarias_realizada"
+                                    value="SEDUC"><label for="SEDUC">SEDUC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEFAZ" name="secretarias_realizada"
+                                    value="SEFAZ"><label for="SEFAZ">SEFAZ</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEGOV" name="secretarias_realizada"
+                                    value="SEGOV"><label for="SEGOV">SEGOV</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEIND" name="secretarias_realizada"
+                                    value="SEIND"><label for="SEIND">SEIND</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEINFRA" name="secretarias_realizada"
+                                    value="SEINFRA"><label for="SEINFRA">SEINFRA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEJEL" name="secretarias_realizada"
+                                    value="SEJEL"><label for="SEJEL">SEJEL</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEJUSC" name="secretarias_realizada"
+                                    value="SEJUSC"><label for="SEJUSC">SEJUSC</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEMA" name="secretarias_realizada"
+                                    value="SEMA"><label for="SEMA">SEMA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEMIG" name="secretarias_realizada"
+                                    value="SEMIG"><label for="SEMIG">SEMIG</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEPED" name="secretarias_realizada"
+                                    value="SEPED"><label for="SEPED">SEPED</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEPROR" name="secretarias_realizada"
+                                    value="SEPROR"><label for="SEPROR">SEPROR</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SERFI" name="secretarias_realizada"
+                                    value="SERFI"><label for="SERFI">SERFI</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SERGB" name="secretarias_realizada"
+                                    value="SERGB"><label for="SERGB">SERGB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SES" name="secretarias_realizada"
+                                    value="SES"><label for="SES">SES</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SETRAB" name="secretarias_realizada"
+                                    value="SETRAB"><label for="SETRAB">SETRAB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SGVG" name="secretarias_realizada"
+                                    value="SGVG"><label for="SGVG">SGVG</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SNPH" name="secretarias_realizada"
+                                    value="SNPH"><label for="SNPH">SNPH</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SRMM" name="secretarias_realizada"
+                                    value="SRMM"><label for="SRMM">SRMM</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SSP" name="secretarias_realizada"
+                                    value="SSP"><label for="SSP">SSP</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SUHAB" name="secretarias_realizada"
+                                    value="SUHAB"><label for="SUHAB">SUHAB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="UEA" name="secretarias_realizada"
+                                    value="UEA"><label for="UEA">UEA</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="UGPE" name="secretarias_realizada"
+                                    value="UGPE"><label for="UGPE">UGPE</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="SEDURB" name="secretarias_realizada"
+                                    value="SEDURB"><label for="SEDURB">SEDURB</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="TV ENCONTRO DAS ÁGUAS"
+                                    name="secretarias_realizada" value="TV ENCONTRO DAS ÁGUAS"><label
+                                    for="TV ENCONTRO DAS ÁGUAS">TV ENCONTRO DAS ÁGUAS</label></div>
+                        </div>
+                    </div>
+                </div>    
+
+
+                    <!-- Script para exibir/ocultar os campos -->
+                    <script>
+                        function toggleCampos() {
+                            var tipoAcao = document.getElementById("tipo_acao").value;
+
+                            // Exibe ou oculta seções específicas
+                            document.getElementById("planejamento_section").style.display = (tipoAcao === "PLANEJAMENTO") ? "block" : "none";
+                            document.getElementById("andamento_section").style.display = (tipoAcao === "ANDAMENTO") ? "block" : "none";
+                            document.getElementById("realizada_section").style.display = (tipoAcao === "REALIZADA") ? "block" : "none";
+
+                            // Exibe o botão somente se alguma ação for selecionada
+                            var botao = document.getElementById("botao_envio");
+                            if (tipoAcao === "PLANEJAMENTO" || tipoAcao === "ANDAMENTO" || tipoAcao === "REALIZADA") {
+                                botao.style.display = "block";
+                            } else {
+                                botao.style.display = "none";
+                            }
+                        }
+
+                        function toggleMunicipiosPlanejamento() {
+                            document.getElementById("municipio_section_planejamento").style.display =
+                                (document.getElementById("nivel_vulnerabilidade1").value === "MUNICÍPIO") ? "block" : "none";
+                        }
+
+                        function toggleMunicipiosAndamento() {
+                            document.getElementById("municipio_section_andamento").style.display =
+                                (document.getElementById("nivel_vulnerabilidade2").value === "MUNICÍPIO") ? "block" : "none";
+                        }
+
+                        function toggleMunicipiosRealizada() {
+                            document.getElementById("municipio_section_realizada").style.display =
+                                (document.getElementById("nivel_vulnerabilidade3").value === "MUNICÍPIO") ? "block" : "none";
+                        }
+                    </script>
+
+                    <!-- Botão de Envio -->
+                    <div>
+                        <button id="botao_envio" type="submit" class="btn btn-primary" style="display: none;">Salvar Alterações</button>
+                    </div>
+    <script>
+        function toggleMunicipios() {
+            var acaoNivel = document.getElementById("acao_nivel").value;
+            var municipioSection = document.getElementById("municipio_section");
+            municipioSection.style.display = acaoNivel === "MUNICÍPIO" ? "block" : "none";
+        }
+    </script>
+
+
+</body>
+
+</html>
