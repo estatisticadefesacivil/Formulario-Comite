@@ -6,7 +6,8 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'chave-secreta'  # Alterar para uma chave segura
+# app.config['SECRET_KEY'] = 'chave-secreta'  # Alterar para uma chave segura
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///usuarios.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -15,7 +16,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
 # 📂 Caminho do OneDrive
-ONEDRIVE_FOLDER = r'C:/Users/ewila/OneDrive - PRODAM Office 365/Dados-comitê'
+ONEDRIVE_FOLDER = 'dados'
 os.makedirs(ONEDRIVE_FOLDER, exist_ok=True)
 
 # 📄 Nome do arquivo Excel para armazenar respostas
