@@ -152,7 +152,7 @@ def formulario():
         df_final.to_excel(dados_excel, index=False)
 
         flash("Dados enviados com sucesso!", "success")
-        return redirect(url_for("formulario"))
+        return redirect(url_for("minhas_respostas"))
 
     return render_template('formulario.html')
 
