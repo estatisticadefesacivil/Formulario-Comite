@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <title>Responder</title>
+</head>
+
+<body>
+    <h2>Nova Resposta</h2>
+    <form method="POST">
+        <textarea name="conteudo" required></textarea><br>
+        <button type="submit">Enviar</button>
+    </form>
+    <a href="{{ url_for('dashboard') }}">Voltar</a>
+</body>
+</html>

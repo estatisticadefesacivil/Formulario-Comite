@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comitê do Clima | Login</title>
+    <link rel="comite icon" href="../static/favicon.ico" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            background: url('../static/background.svg') no-repeat center center/cover;
+        }
+
+        .left {
+            flex: 1;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .overlay h1 {
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .overlay h6 {
+            color: #A8D252;
+            font-size: 2rem;
+            font-weight: regular;
+            text-align: left;
+        }
+
+        .right {
+            flex: 1;
+            background-color: #373737;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .form-box {
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            color: white;
+            text-align: center;
+        }
+
+        .form-box h1 {
+            margin-bottom: 10px;
+        }
+
+        .form-box h2 {
+            margin-bottom: 30px;
+        }
+
+        .form-box p {
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .form-box label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .form-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 30px;
+            border: none;
+            border-radius: 5px;
+            background-color: #505050;
+            color: white;
+        }
+
+        .form-box button {
+            width: 80%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(to right, #22c55e, #3b82f6);
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            margin: 10px auto 20px auto; 
+            display: block; 
+        }
+
+        .form-box button:hover {
+            filter: brightness(1.2);
+        }
+
+        .form-box a {
+            color: #22c55e;
+            text-decoration: none;
+        }
+
+        .form-box a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            margin: 20px 0;
+        }
+
+        .footer {
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 599px) {
+            .logo-comite {
+                display: none;
+            }
+        }
+
+        .loader {
+            display: none;
+            margin: 10px auto;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 60px;
+            margin-top: 25px;
+            border: 4px solid #fff;
+            border-top: 4px solid #22c55e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="overlay">
+                <img src="../static/comite-logo2.svg" alt="Logo do Comitê" class="logo-comite" height="60%" />
+            </div>
+        </div>
+        <div class="right">
+            <div class="form-box">
+                <h1>Bem vindo(a)</h1>
+                <p>Acesse sua conta para continuar</p>
+                <form method="POST">
+                    <input type="email" name="email" placeholder="nome@exemplo.com" required>
+                    <input type="password" name="senha" placeholder="********" required>
+                    <button type="submit">Entrar</button>
+                </form>
+
+                <div class="loader" id="loader"></div>
+                <p> Novo por aqui? <a href="{{ url_for('cadastro') }}">Cadastre-se</a>
+                <div class="logo">
+                    <img src="../static/amazonas-logo.svg" alt="Logo Amazonas" height="120">
+                </div>
+                <div class="footer">
+                    Desenvolvido por DDS - Defesa Civil/AM<br>
+                    &copy; 2025
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("login-form").addEventListener("submit", function (event) {
+                event.preventDefault(); // Impede o envio padrão do formulário
+
+                let email = document.getElementById("email").value;
+                let senha = document.getElementById("senha").value;
+                let loader = document.getElementById("loader");
+                let errorMessage = document.getElementById("error-message");
+                let loginBtn = document.getElementById("login-btn");
+
+                // Esconder botão e mostrar loader
+                loginBtn.style.display = "none";
+                loader.style.display = "block";
+                errorMessage.style.display = "none"; // Esconder erro ao tentar novamente
+
+                setTimeout(() => {
+                    let usuariosValidos = [
+                        { email: "usuario@exemplo.com", senha: "123456" },
+                        { email: "admin@site.com", senha: "admin123" }
+                    ];
+
+                    let usuarioEncontrado = usuariosValidos.find(user => user.email === email && user.senha === senha);
+
+                    if (usuarioEncontrado) {
+                        alert("Login realizado com sucesso!");
+                        window.location.href = "home.html";
+                    } else {
+                        errorMessage.style.display = "block";
+                        loginBtn.style.display = "block";
+                        loader.style.display = "none";
+                    }
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
